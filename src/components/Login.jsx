@@ -20,7 +20,7 @@ const Login = () => {
           className="p-1.5 my-2 bg-[#605C5C] rounded placeholder-[#FDF7F7] w-full"
         /> }
         <input
-          type="text"
+          type="email"
           placeholder="Email Address"
           className="p-1.5 my-2 bg-[#605C5C] rounded placeholder-[#FDF7F7] w-full"
         />
