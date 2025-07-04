@@ -14,7 +14,7 @@ const Login = () => {
 
   function handleButtonClick() {
     // validate form
-    
+
     if (signUp) {
       const message = validateForm(
         name.current?.value,
@@ -43,7 +43,7 @@ const Login = () => {
 
       {/* Sign In Form*/}
       <form
-        onClick={(e) => e.preventDefault()}
+        onSubmit={(e) => e.preventDefault()}
         className="w-3/12 absolute  bg-black/80 p-8 m-30 mx-auto right-0 left-0 text-white rounded"
       >
         <h1 className="font-bold text-3xl py-4">
@@ -87,7 +87,7 @@ const Login = () => {
                 name=""
                 id="remember"
                 className="cursor-pointer text-blue-500"
-              />{" "}
+              />
               Remeber Me?
             </label>
 
