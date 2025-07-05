@@ -3,10 +3,18 @@ import Header from "./Header";
 import netflixBg from "../assets/netflixBg.png";
 import { validateForm } from "../utils/validate";
 import { FaTimesCircle } from "react-icons/fa";
+import { auth } from "../utils/firebase";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [signUp, setSignUp] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
+
+  const navigate = useNavigate();
 
   const name = useRef(null);
   const email = useRef(null);
@@ -14,23 +22,45 @@ const Login = () => {
 
   function handleButtonClick() {
     // validate form
+    const newName = signUp ? name.current?.value : null;
+    const newEmail = email.current?.value;
+    const newPassword = password.current?.value;
+
+    const message = validateForm(newName, newEmail, newPassword);
+    setErrorMsg(message);
+
+    // Authentication
+
+    // if the message contain any message (like "enter valid email" || "password invalid") then return
+    if (message) return;
 
     if (signUp) {
-      const message = validateForm(
-        name.current?.value,
-        email.current?.value,
-        password.current?.value
-      );
-      setErrorMsg(message);
-    } else {
-      // Only validate email and password during sign in
+      createUserWithEmailAndPassword(auth, newEmail, newPassword)
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log(user);
+          navigate("/browse");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
 
-      const message = validateForm(
-        null, // name is not needed
-        email.current?.value,
-        password.current?.value
-      );
-      setErrorMsg(message);
+          setErrorMsg(errorCode + errorMessage);
+        });
+    } else {
+      signInWithEmailAndPassword(auth, newEmail, newPassword)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+          navigate("/browse");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMsg(errorCode + errorMessage);
+        });
     }
   }
 
