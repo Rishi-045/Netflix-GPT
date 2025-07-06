@@ -1,12 +1,29 @@
-# React + Vite
+# 🎬 Netflix-GPT
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Netflix-GPT is a modern full-stack Netflix clone application built using **React.js**, **Tailwind CSS**, **Firebase Authentication**, and **OpenAI's GPT API**. It features a responsive UI, user authentication, protected routes, and dynamic movie browsing.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔥 Features
 
-## Expanding the ESLint configuration
+- 🔐 **User Authentication** using Firebase (Sign Up / Sign In / Sign Out)
+- 🛡️ **Protected Routes** — Browse page accessible only after login
+- 🎯 **Redux Store** to manage user state globally
+- 🌐 **Responsive UI** built with Tailwind CSS
+- 🧠 **GPT Integration** for movie search or recommendation
+- 📂 Clean folder structure using Vite + React
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🧑‍💻 Tech Stack
+
+- **Frontend**: React.js (with Vite)
+- **Styling**: Tailwind CSS
+- **State Management**: Redux Toolkit
+- **Authentication**: Firebase Auth
+- **Deployment**: Firebase Hosting
+
+
+
+
+
