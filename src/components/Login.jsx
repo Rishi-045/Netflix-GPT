@@ -7,12 +7,16 @@ import { auth } from "../utils/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { Navigate, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
   const [signUp, setSignUp] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -37,10 +41,34 @@ const Login = () => {
     if (signUp) {
       createUserWithEmailAndPassword(auth, newEmail, newPassword)
         .then((userCredential) => {
-          // Signed up
+          console.log(userCredential);
           const user = userCredential.user;
+          // Signed up
+          updateProfile(user, {
+            displayName: newName,
+            photoURL: "https://avatars.githubusercontent.com/u/144122061?v=4",
+          })
+            .then(() => {
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              // console.log(user , auth.currentUser)
+
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
+           
+              // Profile updated!
+              navigate("/browse");
+            })
+            .catch((error) => {
+              setErrorMsg(error + message);
+            });
+
           console.log(user);
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
