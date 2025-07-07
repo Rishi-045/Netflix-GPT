@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import netflixLogo from "../assets/netflixLogo.png";
-//import netflixUserIcon from "../assets/netflix-user-icon.png"
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate, Link } from "react-router-dom";

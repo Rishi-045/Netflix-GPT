@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import Header from "./Header";
 import netflixBg from "../assets/netflixBg.png";
+import netflixUserIcon from "../assets/netflix-user-icon.png"
 import { validateForm } from "../utils/validate";
 import { FaTimesCircle } from "react-icons/fa";
 import { auth } from "../utils/firebase";
@@ -43,7 +44,7 @@ const Login = () => {
           // Signed up
           updateProfile(user, {
             displayName: newName,
-            photoURL: "https://avatars.githubusercontent.com/u/144122061?v=4",
+            photoURL: netflixUserIcon,
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = auth.currentUser;
