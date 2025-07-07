@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Header from "./Header";
 import netflixBg from "../assets/netflixBg.png";
 import { validateForm } from "../utils/validate";
@@ -9,7 +9,6 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { Navigate, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
@@ -17,8 +16,6 @@ const Login = () => {
   const [signUp, setSignUp] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
   const dispatch = useDispatch();
-
-  const navigate = useNavigate();
 
   const name = useRef(null);
   const email = useRef(null);
@@ -60,9 +57,8 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
-           
+
               // Profile updated!
-              navigate("/browse");
             })
             .catch((error) => {
               setErrorMsg(error + message);
@@ -82,7 +78,6 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           console.log(user);
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;

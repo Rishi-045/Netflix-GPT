@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import netflixLogo from "../assets/netflixLogo.png";
 //import netflixUserIcon from "../assets/netflix-user-icon.png"
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { FiBell } from "react-icons/fi";
 import { FiSearch } from "react-icons/fi"; // Feather search
 
 import { FiChevronDown } from "react-icons/fi"; 
+import { addUser, removeUser } from "../utils/userSlice";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
   const [showArrow, setShowArrow] = useState(true)
@@ -26,6 +28,22 @@ const Header = () => {
         navigate("/error");
       });
   };
+
+  useEffect(()=>{
+    onAuthStateChanged(auth, (user) => {
+  if (user) {
+  
+    const {uid, email, displayName, photoURL} = user;
+    console.log(uid,email,displayName,photoURL)
+    dispatch(addUser({uid : uid, email : email, displayName : displayName, photoURL : photoURL}))
+     navigate("/browse")
+
+  } else {
+    dispatch(removeUser())
+    navigate("/")
+  }
+});
+  },[])
   return (
     <div className="absolute w-screen  bg-gradient-to-b from-black/100  z-10 flex gap-10 px-2">
       <img className="w-48  " src={netflixLogo} alt="" />
