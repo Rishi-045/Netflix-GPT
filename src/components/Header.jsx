@@ -16,7 +16,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
-  const [showArrow, setShowArrow] = useState(true)
+  const [showArrow, setShowArrow] = useState(false)
 
   const handleSignOut = () => {
     signOut(auth)
@@ -30,7 +30,7 @@ const Header = () => {
   };
 
   useEffect(()=>{
-    onAuthStateChanged(auth, (user) => {
+  const unsubscribe =  onAuthStateChanged(auth, (user) => {
   if (user) {
   
     const {uid, email, displayName, photoURL} = user;
@@ -42,6 +42,9 @@ const Header = () => {
     dispatch(removeUser())
     navigate("/")
   }
+
+
+  return () => unsubscribe();
 });
   },[])
   return (
