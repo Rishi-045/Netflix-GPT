@@ -33,7 +33,6 @@ const Header = () => {
   if (user) {
   
     const {uid, email, displayName, photoURL} = user;
-    console.log(uid,email,displayName,photoURL)
     dispatch(addUser({uid : uid, email : email, displayName : displayName, photoURL : photoURL}))
      navigate("/browse")
 
@@ -77,7 +76,6 @@ const Header = () => {
               <li>Browse By Languages</li>
             </Link>
           </ul>
-          {console.log(user.photoURL)}
           <div className="flex gap-2">
             <FiSearch size={20} color="white" />
             <FiBell size={20} color="white" />
