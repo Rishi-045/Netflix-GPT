@@ -46,12 +46,13 @@ const Header = () => {
 });
   },[])
   return (
-    <div className="absolute w-screen  bg-gradient-to-b from-black/100  z-10 flex gap-10 px-2">
-      <img className="w-48  " src={netflixLogo} alt="" />
+    <div className="absolute w-screen  bg-gradient-to-b from-black/100  z-10 flex gap-10 px-6">
+      <img className="w-48 h-11  " src={netflixLogo} alt="" />
 
       {user && (
         <div className="flex justify-between text-center  mt-2 w-full">
-          <ul className="flex gap-4    text-white">
+          <div className="hidden md:block">
+            <ul className="flex gap-4  text-white">
             <Link to="#">
               <li>Home</li>
             </Link>
@@ -76,6 +77,7 @@ const Header = () => {
               <li>Browse By Languages</li>
             </Link>
           </ul>
+          </div>
           <div className="flex gap-2">
             <FiSearch size={20} color="white" />
             <FiBell size={20} color="white" />
@@ -86,12 +88,12 @@ const Header = () => {
               className="w-6 h-6 z-1000 rounded"
             />
             <div>
-              <FiChevronDown size={20} onClick={()=>setShowArrow(prev=>!prev)} className="text-white text-[2px]"/>
+              <FiChevronDown size={18} onClick={()=>setShowArrow(prev=>!prev)} className="text-white text-[2px]"/>
             {showArrow && <button
-              className=" text-sm cursor-pointer"
+              className=" text-xs cursor-pointer  text-white "
               onClick={() => handleSignOut()}
             >
-              Sign Out
+              SignOut
             </button>}
             </div>
           </div>
