@@ -8,16 +8,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { FiBell } from "react-icons/fi";
 import { FiSearch } from "react-icons/fi"; // Feather search
 
-import { FiChevronDown } from "react-icons/fi"; 
+import { FiChevronDown } from "react-icons/fi";
 import { addUser, removeUser } from "../utils/userSlice";
 import { toggleGptSearchView } from "../utils/gptSlice";
+import { SUPPORTED_LANGUAGES } from "../utils/languageConstant";
+import { changeLanguage } from "../utils/configSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
-  const showGptButton = useSelector(store=>store.gpt?.showGptSearch)
-  const [showArrow, setShowArrow] = useState(false)
+  const showGptButton = useSelector((store) => store.gpt?.showGptSearch);
+  const [showArrow, setShowArrow] = useState(false);
 
   const handleSignOut = () => {
     signOut(auth)
@@ -32,26 +34,34 @@ const Header = () => {
 
   const handleGptSearchView = () => {
     //toggle gpt view
-    dispatch(toggleGptSearchView())
+    dispatch(toggleGptSearchView());
+  };
+
+  const handleLaguageOptions = (e) => {
+    dispatch(changeLanguage(e.target.value))
   }
 
-  useEffect(()=>{
-  const unsubscribe =  onAuthStateChanged(auth, (user) => {
-  if (user) {
-  
-    const {uid, email, displayName, photoURL} = user;
-    dispatch(addUser({uid : uid, email : email, displayName : displayName, photoURL : photoURL}))
-     navigate("/browse")
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, displayName, photoURL } = user;
+        dispatch(
+          addUser({
+            uid: uid,
+            email: email,
+            displayName: displayName,
+            photoURL: photoURL,
+          })
+        );
+        navigate("/browse");
+      } else {
+        dispatch(removeUser());
+        navigate("/");
+      }
 
-  } else {
-    dispatch(removeUser())
-    navigate("/")
-  }
-
-
-  return () => unsubscribe();
-});
-  },[])
+      return () => unsubscribe();
+    });
+  }, []);
   return (
     <div className="absolute w-screen  bg-gradient-to-b from-black/100  z-100 flex gap-10 px-6">
       <img className="w-48 h-11  " src={netflixLogo} alt="" />
@@ -60,39 +70,63 @@ const Header = () => {
         <div className="flex justify-between text-center  mt-2 w-full">
           <div className="hidden md:block">
             <ul className="flex gap-4  text-white">
-            <Link to="#">
-              <li>Home</li>
-            </Link>
-            <Link to="#">
-              
-              <li>TV Shows</li>
-            </Link>
-            <Link to="#">
-              
-              <li>Movies</li>
-            </Link>
-            <Link to="#">
-              
-              <li>New & Popular</li>
-            </Link>
-            <Link to="#">
-              {" "}
-              <li>My List</li>
-            </Link>
-            <Link to="#">
-              
-              <li>Browse By Languages</li>
-            </Link>
-          </ul>
+              <Link to="#">
+                <li>Home</li>
+              </Link>
+              <Link to="#">
+                <li>TV Shows</li>
+              </Link>
+              <Link to="#">
+                <li>Movies</li>
+              </Link>
+              <Link to="#">
+                <li>New & Popular</li>
+              </Link>
+              <Link to="#">
+                {" "}
+                <li>My List</li>
+              </Link>
+              <Link to="#">
+                <li>Browse By Languages</li>
+              </Link>
+            </ul>
           </div>
           <div className="flex gap-2">
+            <select
+            onChange={handleLaguageOptions}
+              name=""
+              id=""
+              className="bg-transparent  text-white border-none focus:outline-none  -mt-5"
+            >
+              {SUPPORTED_LANGUAGES.map((lang) => (
+                <option
+                  key={lang.identifier}
+                  value={lang.identifier}
+                  className="text-black rounded-xl"
+                >
+                  {lang.name}
+                </option>
+              ))}
+            </select>
 
             {/* Gpt search button */}
-         { !showGptButton ?   <button className=" flex gap-1 cursor-pointer" onClick={handleGptSearchView}>
-              <FiSearch size={20} color="white" /> <span className="text-white -mt-1">GPT-Search</span>
-            </button> : <button className=" flex gap-1 cursor-pointer" onClick={handleGptSearchView}>
-              <FiSearch size={20} color="white" /> <span className="text-white -mt-1">Browse</span>
-            </button> }
+            {!showGptButton ? (
+              <button
+                className=" flex gap-1 cursor-pointer"
+                onClick={handleGptSearchView}
+              >
+                <FiSearch size={20} color="white" />{" "}
+                <span className="text-white -mt-1">GPT-Search</span>
+              </button>
+            ) : (
+              <button
+                className=" flex gap-1 cursor-pointer"
+                onClick={handleGptSearchView}
+              >
+                <FiSearch size={20} color="white" />{" "}
+                <span className="text-white -mt-1">Browse</span>
+              </button>
+            )}
             <FiBell size={20} color="white" />
 
             <img
@@ -101,13 +135,19 @@ const Header = () => {
               className="w-6 h-6 z-1000 rounded"
             />
             <div>
-              <FiChevronDown size={18} onClick={()=>setShowArrow(prev=>!prev)} className="text-white text-[2px] cursor-pointer"/>
-            {showArrow && <button
-              className=" text-xs cursor-pointer  text-white "
-              onClick={() => handleSignOut()}
-            >
-              SignOut
-            </button>}
+              <FiChevronDown
+                size={18}
+                onClick={() => setShowArrow((prev) => !prev)}
+                className="text-white text-[2px] cursor-pointer"
+              />
+              {showArrow && (
+                <button
+                  className=" text-xs cursor-pointer  text-white "
+                  onClick={() => handleSignOut()}
+                >
+                  SignOut
+                </button>
+              )}
             </div>
           </div>
         </div>
