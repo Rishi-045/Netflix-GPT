@@ -10,11 +10,13 @@ import { FiSearch } from "react-icons/fi"; // Feather search
 
 import { FiChevronDown } from "react-icons/fi"; 
 import { addUser, removeUser } from "../utils/userSlice";
+import { toggleGptSearchView } from "../utils/gptSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
+  const showGptButton = useSelector(store=>store.gpt?.showGptSearch)
   const [showArrow, setShowArrow] = useState(false)
 
   const handleSignOut = () => {
@@ -27,6 +29,11 @@ const Header = () => {
         navigate("/error");
       });
   };
+
+  const handleGptSearchView = () => {
+    //toggle gpt view
+    dispatch(toggleGptSearchView())
+  }
 
   useEffect(()=>{
   const unsubscribe =  onAuthStateChanged(auth, (user) => {
@@ -79,9 +86,13 @@ const Header = () => {
           </ul>
           </div>
           <div className="flex gap-2">
-            <button className=" flex gap-1 cursor-pointer">
+
+            {/* Gpt search button */}
+         { !showGptButton ?   <button className=" flex gap-1 cursor-pointer" onClick={handleGptSearchView}>
               <FiSearch size={20} color="white" /> <span className="text-white -mt-1">GPT-Search</span>
-            </button>
+            </button> : <button className=" flex gap-1 cursor-pointer" onClick={handleGptSearchView}>
+              <FiSearch size={20} color="white" /> <span className="text-white -mt-1">Browse</span>
+            </button> }
             <FiBell size={20} color="white" />
 
             <img

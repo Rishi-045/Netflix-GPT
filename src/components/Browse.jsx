@@ -1,27 +1,35 @@
-import React from 'react'
-import Header from './Header'
-import useNowPlayingMovies from './hooks/useNowPlayingMovies'
-import MainContainer from './MainContainer'
-import SecondaryContainer from './SecondaryContainer'
-import usePopularMovies from './hooks/usePopularMovies'
-import useUpcomingMovies from './hooks/useUpcomingMovies'
-import  useTopRatedMovies  from './hooks/useTopRatedMovies'
+import React from "react";
+import Header from "./Header";
+import useNowPlayingMovies from "./hooks/useNowPlayingMovies";
+import MainContainer from "./MainContainer";
+import SecondaryContainer from "./SecondaryContainer";
+import usePopularMovies from "./hooks/usePopularMovies";
+import useUpcomingMovies from "./hooks/useUpcomingMovies";
+import useTopRatedMovies from "./hooks/useTopRatedMovies";
+import GptMainContainer from "./GptMainContainer";
+import { useSelector } from "react-redux";
 
 const Browse = () => {
- 
+  const isGptbutton = useSelector((store) => store.gpt?.showGptSearch);
+
   useNowPlayingMovies();
   usePopularMovies();
   useTopRatedMovies();
   useUpcomingMovies();
-  
 
   return (
     <div>
       <Header />
-      <MainContainer />
-      <SecondaryContainer /> 
+      {isGptbutton ? (
+        <GptMainContainer />
+      ) : (
+        <>
+          <MainContainer />
+          <SecondaryContainer />
+        </>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Browse
+export default Browse;
