@@ -4,8 +4,6 @@ import { useSelector } from "react-redux";
 
 const GptSearchBar = () => {
   const langKey = useSelector(store=>store.config?.lang)
-  console.log(langKey)
-
 
   return (
     <div className="absolute bottom-[70%] left-[25%] w-1/2">
