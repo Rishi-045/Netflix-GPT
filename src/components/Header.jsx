@@ -46,7 +46,7 @@ const Header = () => {
 });
   },[])
   return (
-    <div className="absolute w-screen  bg-gradient-to-b from-black/100  z-10 flex gap-10 px-6">
+    <div className="absolute w-screen  bg-gradient-to-b from-black/100  z-100 flex gap-10 px-6">
       <img className="w-48 h-11  " src={netflixLogo} alt="" />
 
       {user && (
@@ -79,7 +79,9 @@ const Header = () => {
           </ul>
           </div>
           <div className="flex gap-2">
-            <FiSearch size={20} color="white" />
+            <button className=" flex gap-1 cursor-pointer">
+              <FiSearch size={20} color="white" /> <span className="text-white -mt-1">GPT-Search</span>
+            </button>
             <FiBell size={20} color="white" />
 
             <img
@@ -88,7 +90,7 @@ const Header = () => {
               className="w-6 h-6 z-1000 rounded"
             />
             <div>
-              <FiChevronDown size={18} onClick={()=>setShowArrow(prev=>!prev)} className="text-white text-[2px]"/>
+              <FiChevronDown size={18} onClick={()=>setShowArrow(prev=>!prev)} className="text-white text-[2px] cursor-pointer"/>
             {showArrow && <button
               className=" text-xs cursor-pointer  text-white "
               onClick={() => handleSignOut()}
