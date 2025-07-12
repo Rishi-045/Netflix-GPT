@@ -11,7 +11,7 @@ import { FiSearch } from "react-icons/fi"; // Feather search
 import { FiChevronDown } from "react-icons/fi";
 import { addUser, removeUser } from "../utils/userSlice";
 import { toggleGptSearchView } from "../utils/gptSlice";
-import { SUPPORTED_LANGUAGES } from "../utils/languageConstant";
+import lang, { SUPPORTED_LANGUAGES } from "../utils/languageConstant";
 import { changeLanguage } from "../utils/configSlice";
 
 const Header = () => {
@@ -20,6 +20,7 @@ const Header = () => {
   const user = useSelector((store) => store.user);
   const showGptButton = useSelector((store) => store.gpt?.showGptSearch);
   const [showArrow, setShowArrow] = useState(false);
+  const langKey = useSelector(store=>store.config?.lang)
 
   const handleSignOut = () => {
     signOut(auth)
@@ -38,8 +39,8 @@ const Header = () => {
   };
 
   const handleLaguageOptions = (e) => {
-    dispatch(changeLanguage(e.target.value))
-  }
+    dispatch(changeLanguage(e.target.value));
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -71,29 +72,29 @@ const Header = () => {
           <div className="hidden md:block">
             <ul className="flex gap-4  text-white">
               <Link to="#">
-                <li>Home</li>
+                <li>{lang[langKey].navItems.home}</li>
               </Link>
               <Link to="#">
-                <li>TV Shows</li>
+                <li>{lang[langKey].navItems.movies}</li>
               </Link>
               <Link to="#">
-                <li>Movies</li>
+                <li>{lang[langKey].navItems.myList}</li>
               </Link>
               <Link to="#">
-                <li>New & Popular</li>
+                <li>{lang[langKey].navItems.newAndPopular}</li>
               </Link>
               <Link to="#">
                 {" "}
-                <li>My List</li>
+                <li>{lang[langKey].navItems.tvShows}</li>
               </Link>
               <Link to="#">
-                <li>Browse By Languages</li>
+                <li>{lang[langKey].navItems.browseByLanguages}</li>
               </Link>
             </ul>
           </div>
           <div className="flex gap-2">
             <select
-            onChange={handleLaguageOptions}
+              onChange={handleLaguageOptions}
               name=""
               id=""
               className="bg-transparent  text-white border-none focus:outline-none  -mt-5"
@@ -108,7 +109,6 @@ const Header = () => {
                 </option>
               ))}
             </select>
-
             {/* Gpt search button */}
             {!showGptButton ? (
               <button
@@ -116,7 +116,7 @@ const Header = () => {
                 onClick={handleGptSearchView}
               >
                 <FiSearch size={20} color="white" />{" "}
-                <span className="text-white -mt-1">GPT-Search</span>
+                <span className="text-white -mt-1">GPT-{lang[langKey].search}</span>
               </button>
             ) : (
               <button
@@ -145,7 +145,7 @@ const Header = () => {
                   className=" text-xs cursor-pointer  text-white "
                   onClick={() => handleSignOut()}
                 >
-                  SignOut
+                  {lang[langKey].signOut}
                 </button>
               )}
             </div>
