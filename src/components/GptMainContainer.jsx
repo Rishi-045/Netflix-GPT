@@ -5,8 +5,8 @@ import netflixBg from "../assets/netflixBg.png"
 
 const GptSearch = () => {
   return (
-    <div className='text-white'>
-      <img src={netflixBg} alt="" />
+    <div className="text-white relative min-h-screen">
+      <img src={netflixBg} alt="" className="w-full h-full object-cover fixed inset-0 -z-10"/>
         
         <GptSearchBar />
         <GptMovieSuggestionBox />
