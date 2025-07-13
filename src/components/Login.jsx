@@ -39,7 +39,6 @@ const Login = () => {
     if (signUp) {
       createUserWithEmailAndPassword(auth, newEmail, newPassword)
         .then((userCredential) => {
-          console.log(userCredential);
           const user = userCredential.user;
           // Signed up
           updateProfile(user, {
@@ -65,7 +64,7 @@ const Login = () => {
               setErrorMsg(error + message);
             });
 
-          console.log(user);
+     
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -75,10 +74,8 @@ const Login = () => {
         });
     } else {
       signInWithEmailAndPassword(auth, newEmail, newPassword)
-        .then((userCredential) => {
+        .then(() => {
           // Signed in
-          const user = userCredential.user;
-          console.log(user);
         })
         .catch((error) => {
           const errorCode = error.code;

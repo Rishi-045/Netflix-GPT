@@ -23,7 +23,7 @@ const GptSearchBar = () => {
     return json?.results;
   }
     catch(err){
-       console.log(err)
+     alert("refresh page and try again",err.message)
     }
   };
 
@@ -42,12 +42,9 @@ const GptSearchBar = () => {
     // error handling
 
     const gptMovies = response?.text.split(", ");
-    console.log(gptMovies);
-
     const promiseArray = gptMovies.map((movie) => fetchMovieTMDB(movie));
 
     const tmdbResults = await Promise.all(promiseArray);
-    console.log(tmdbResults);
     dispatch(addGptMoviesResult({movieResults :tmdbResults , movieSearch :gptMovies }))
   };
 
