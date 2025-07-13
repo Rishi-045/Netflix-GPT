@@ -26,6 +26,10 @@ Netflix-GPT is a modern full-stack Netflix clone application built using **React
 
 ---
 
+  📝 **Note:**  
+> If TMDB API requests don't work on your local machine, try using a **VPN** or a **mobile hotspot**.  
+> This issue is usually caused by TMDB blocking certain IPs or networks (like college Wi-Fi, home Wi-Fi or some ISPs).
+
 ## 🚀 Live Demo
 https://netflix-gpt-smoky-ten.vercel.app/
 
