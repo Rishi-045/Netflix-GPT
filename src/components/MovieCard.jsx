@@ -3,7 +3,7 @@ import { IMG_CDN_URL } from '../utils/constant'
 
 const MovieCard = ({title, posterUrl}) => {
   return (
-    <div className='w-34 '>
+    <div className='w-34  cursor-pointer transform hover:scale-105 transition-transform duration-300'>
         <img src={IMG_CDN_URL+posterUrl} alt={title} className='rounded' />
     </div>
   )
