@@ -64,7 +64,7 @@ const Header = () => {
     });
   }, []);
   return (
-    <div className=" w-screen  bg-gradient-to-b from-black/100 sticky top-0  z-100 flex gap-10 px-6">
+    <div className=" absolute w-screen  bg-gradient-to-b from-black/100  z-100 flex gap-10 px-6">
       <img className="w-48 h-11  " src={netflixLogo} alt="" />
 
       {user && (
