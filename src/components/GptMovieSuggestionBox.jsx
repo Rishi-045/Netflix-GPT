@@ -9,7 +9,7 @@ const GptMovieSuggestionBox = () => {
 
   return (
 <div className="w-full max-w-screen-xl mx-auto px-2 sm:px-4">
-  <div className="bg-black/80 text-white absolute rounded-lg top-[30%] h-[85vh] overflow-y-auto scrollbar-hide mx-2 px-2 py-6 space-y-8">
+  <div className="bg-black/80 text-white absolute rounded-lg top-[20%] h-[85vh] overflow-y-auto scrollbar-hide mx-2 px-2 py-6 space-y-8">
     {movieSearch.map((movieName, index) => (
       <div key={movieName}>
         <h2 className="text-xl font-semibold mb-3 px-2">{movieName}</h2>
