@@ -20,7 +20,7 @@ const Header = () => {
   const user = useSelector((store) => store.user);
   const showGptButton = useSelector((store) => store.gpt?.showGptSearch);
   const [showArrow, setShowArrow] = useState(false);
-  const langKey = useSelector(store=>store.config?.lang)
+  const langKey = useSelector((store) => store.config?.lang);
 
   const handleSignOut = () => {
     signOut(auth)
@@ -64,13 +64,19 @@ const Header = () => {
     });
   }, []);
   return (
-    <div className=" absolute w-screen  bg-gradient-to-b from-black/100  z-100 flex gap-10 px-6">
-      <img className="w-48 h-11  " src={netflixLogo} alt="" />
+    <div className="absolute w-full z-50 bg-gradient-to-b from-black/100 px-4 py-2 flex flex-col md:flex-row md:items-center gap-2 md:gap-10">
+      <div className="flex justify-between items-center">
+        <img
+          className="w-32 md:w-48 h-auto"
+          src={netflixLogo}
+          alt="Netflix Logo"
+        />
+      </div>
 
       {user && (
-        <div className="flex justify-between text-center  mt-2 w-full">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-2 w-full md:gap-4">
           <div className="hidden md:block">
-            <ul className="flex gap-4  text-white">
+            <ul className="hidden md:flex text-white gap-4">
               <Link to="#">
                 <li>{lang[langKey].navItems.home}</li>
               </Link>
@@ -92,57 +98,44 @@ const Header = () => {
               </Link>
             </ul>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <select
               onChange={handleLaguageOptions}
               name=""
               id=""
-              className="bg-transparent  text-white border-none focus:outline-none  -mt-5"
+              className="bg-transparent  text-white border-none focus:outline-none  text-sm"
             >
               {SUPPORTED_LANGUAGES.map((lang) => (
                 <option
                   key={lang.identifier}
                   value={lang.identifier}
-                  className="text-black rounded-xl"
+                  className="text-black"
                 >
                   {lang.name}
                 </option>
               ))}
             </select>
             {/* Gpt search button */}
-            {!showGptButton ? (
-              <button
-                className=" flex gap-1 cursor-pointer"
-                onClick={handleGptSearchView}
-              >
-                <FiSearch size={20} color="white" />{" "}
-                <span className="text-white -mt-1">GPT-{lang[langKey].search}</span>
-              </button>
-            ) : (
-              <button
-                className=" flex gap-1 cursor-pointer"
-                onClick={handleGptSearchView}
-              >
-                <FiSearch size={20} color="white" />{" "}
-                <span className="text-white -mt-1">Browse</span>
-              </button>
-            )}
+            <button
+              className=" flex items-center text-white text-sm gap-1 cursor-pointer"
+              onClick={handleGptSearchView}
+            >
+              <FiSearch size={20} />{" "}
+              {showGptButton ? "Browse" : `GPT-${lang[langKey].search}`}
+            </button>
+
             <FiBell size={20} color="white" />
 
-            <img
-              src={user.photoURL}
-              alt=""
-              className="w-6 h-6 z-1000 rounded"
-            />
+            <img src={user.photoURL} alt="user" className="w-6 h-6 rounded" />
             <div>
               <FiChevronDown
                 size={18}
                 onClick={() => setShowArrow((prev) => !prev)}
-                className="text-white text-[2px] cursor-pointer"
+                className="text-white cursor-pointer"
               />
               {showArrow && (
                 <button
-                  className=" text-xs cursor-pointer  text-white "
+                  className="cursor-pointer text-xs text-white "
                   onClick={() => handleSignOut()}
                 >
                   {lang[langKey].signOut}
