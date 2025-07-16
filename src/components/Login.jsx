@@ -86,18 +86,22 @@ const Login = () => {
   }
 
   return (
-    <div>
+    <div className="relative min-h-screen">
       <Header />
-      <div className="absolute">
-        <img src={netflixBg} alt="" />
+      <div className="absolute inset-0 -z-10">
+        <img src={netflixBg} alt=""  className="w-full h-full object-cover"/>
       </div>
 
       {/* Sign In Form*/}
-      <form
+      <div className="relative top-22">
+        <form
         onSubmit={(e) => e.preventDefault()}
-        className="w-3/12 absolute  bg-black/80 p-8 m-30 mx-auto right-0 left-0 text-white rounded"
+        className="w-11/12 sm:w-4/5 md:w-2/3 lg:w-1/3 xl:w-1/4 
+  bg-black/80 p-2 sm:p-8 
+  mx-auto h-1/3 flex flex-col justify-center
+  rounded text-white"
       >
-        <h1 className="font-bold text-3xl py-4">
+        <h1 className="font-bold text-2xl sm:text-3xl py-4 text-center">
           {!signUp ? "Sign In" : "Sign Up"}
         </h1>
         {signUp && (
@@ -105,32 +109,32 @@ const Login = () => {
             ref={name}
             type="text"
             placeholder="Name"
-            className="p-1.5 my-2 bg-[#605C5C] rounded placeholder-[#FDF7F7] w-full"
+            className="p-2 my-2 bg-[#605C5C] rounded placeholder-[#FDF7F7] w-full text-sm sm:text-base"
           />
         )}
         <input
           ref={email}
           type="email"
           placeholder="Email Address"
-          className="p-1.5 my-2 bg-[#605C5C] rounded placeholder-[#FDF7F7] w-full"
+          className="p-2 my-2 bg-[#605C5C] rounded placeholder-[#FDF7F7] w-full text-sm sm:text-base"
         />
         <input
           ref={password}
           type="password"
           placeholder="Password"
-          className="p-1.5 my-2 bg-[#605C5C]  rounded placeholder-[#FDF7F7] w-full "
+          className="p-2 my-2 bg-[#605C5C] rounded placeholder-[#FDF7F7] w-full text-sm sm:text-base "
         />
-        <div className="flex justify-start gap-2">
+        <div className="flex items-center gap-2 text-xs sm:text-sm">
           {errorMsg ? <FaTimesCircle color="red" size={16} /> : null}
           <p className="text-red-700 font-bold -mt-1">{errorMsg}</p>
         </div>
         <button
           onClick={handleButtonClick}
-          className="p-2 my-4 font-bold bg-red-700 w-full rounded cursor-pointer"
+          className="p-2 my-4 font-bold bg-red-700 w-full rounded cursor-pointer hover:bg-red-800 transition"
         >
           {!signUp ? "Sign In" : "Sign Up"}
         </button>
-        <div className="flex flex-col gap-14">
+        <div className="flex flex-col gap-10 sm:gap-14 text-sm">
           <div className="flex gap-22">
             <label htmlFor="remember" className="text-sm cursor-pointer">
               <input
@@ -161,6 +165,7 @@ const Login = () => {
           </div>
         </div>
       </form>
+      </div>
     </div>
   );
 };
